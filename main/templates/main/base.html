@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+      <meta name="robots" content="index,follow">
+    <title>ぽぴのtube</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+  <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script> -->
+  <!-- <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" /> -->
+</head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">ブログ</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'main:index' %}">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      {% if user.is_superuser %}
+      <li class="nav-item" >
+        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+      </li>
+      {% endif %}
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'main:index' %}">
+      <input class="form-control mr-sm-2" type="text" placeholder="フリーワード" aria-label="Search" name="keyword">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+    </form>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-2">
+      <a class="nav-link" href="{% url 'main:index' %}">
+        <img src="/media/HoshiTube-logo.png" width="100%" />
+      </a>
+    </div>
+  </div>
+<p class="lead">ぶろぐせつめい</p>
+<hr class="my-2">
+</div>
+
+    <div class="container">
+     <div class="row">
+      <div class="col-md-8">
+       {% block content %}
+       {% endblock %}
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+         <li class="list-group-item bg-dark text-white">タグ一覧</li>
+         {% for category in category_list %}
+          <li class="list-group-item"><a href="{% url 'main:category' category.pk %}">{{ category }}</li>
+         {% endfor %}
+        </ul>
+      </div>
+     </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-xs-4">
+            <ul>
+              <li><a href="#">詐欺広告にご注意を</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">お問い合わせ</a></li>
+              <li><a href="#">RSS</a></li>
+              <li><a href="#">CapiketGroupとの提携について</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-xs-4">
+            <ul>
+              <li><a href="#">どーが</a></li>
+
+              <li><a href="#">人気キーワード</a></li>
+              <li><a href="#">登録サイト</a></li>
+              <li><a href="#">ブログ管理者様へ</a></li>
+              <li><a href="#">広告出稿</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-xs-4">
+            <h5>姉妹サイト</h5>
+            <ul>
+              <li><a href="#" target="_blank">サイト１</a></li>
+              <li><a href="#" target="_blank">サイト２</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <p class="text-center">
+              ©2020-&nbsp;ほしの動画 All right reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+  </body>
+</html>
