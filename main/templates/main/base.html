@@ -1,17 +1,19 @@
+{% load static %}
 <!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
       <meta name="robots" content="index,follow">
-    <title>ぽぴのtube</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <title>えちえち動画</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
   <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
   <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script> -->
   <!-- <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" /> -->
 </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">ブログ</a>
+  <a class="navbar-brand" href="#">えちえち動画</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,7 +28,10 @@
       </li>
       {% if user.is_superuser %}
       <li class="nav-item" >
-        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+        <a class="nav-link" href="{% url 'main:import' %}">CSV import</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" href="{% url 'main:export' %}">CSV export</a>
       </li>
       {% endif %}
     </ul>
@@ -37,34 +42,36 @@
   </div>
 </nav>
 
-<div class="jumbotron">
+<div class="row">
+  <div class="col-2">
+    <a class="nav-link" href="{% url 'main:index' %}">
+      <img src="/media/HoshiTube-logo.png" width="100%" />
+    </a>
+  </div>
+</div>
+<div class="tag_box">
+  <ul class="side">
+    {% for category in category_list %}
+    <li class="side"><a href="{% url 'main:category' category.pk %}" class="tag_color">{{ category }}</a></li>
+      {% endfor %}
+  </ul>
+</div>
+<div class="container">
   <div class="row">
-    <div class="col-2">
-      <a class="nav-link" href="{% url 'main:index' %}">
-        <img src="/media/HoshiTube-logo.png" width="100%" />
-      </a>
+    <div class="col-md-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li class="list-group-item bg-dark text-white">タグ一覧</li>
+        {% for category in category_list %}
+        <li class="list-group-item"><a href="{% url 'main:category' category.pk %}">{{ category }}</a></li>
+          {% endfor %}
+      </ul>
     </div>
   </div>
-<p class="lead">ぶろぐせつめい</p>
-<hr class="my-2">
 </div>
-
-    <div class="container">
-     <div class="row">
-      <div class="col-md-8">
-       {% block content %}
-       {% endblock %}
-      </div>
-      <div class="col-md-4">
-        <ul class="list-group">
-         <li class="list-group-item bg-dark text-white">タグ一覧</li>
-         {% for category in category_list %}
-          <li class="list-group-item"><a href="{% url 'main:category' category.pk %}">{{ category }}</li>
-         {% endfor %}
-        </ul>
-      </div>
-     </div>
-    </div>
 
     <footer>
       <div class="container">
@@ -99,7 +106,7 @@
         <div class="row">
           <div class="col-md-12 col-xs-12">
             <p class="text-center">
-              ©2020-&nbsp;ほしの動画 All right reserved.
+              ©2020-&nbsp;えちえち動画 All right reserved.
             </p>
           </div>
         </div>

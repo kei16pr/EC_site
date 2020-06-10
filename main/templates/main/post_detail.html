@@ -6,9 +6,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 text-right">
+        <ul class="side">
         {% for tag in post.tags.all %}
-          <a href="{% url 'main:category' tag.pk %}">{{ tag }}</a><br />
+          <li class="side"><a href="{% url 'main:category' tag.pk %}">{{ tag }}</a></li>
         {% endfor%}
+        </ul>
       </div>
     </div>
   </div>
